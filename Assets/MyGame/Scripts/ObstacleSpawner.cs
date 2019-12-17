@@ -1,16 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
     public static ObstacleSpawner instance;
-
     public GameObject[] obstacles;
 
     public bool gameOver = false;
 
     public float minSpawnTime, maxSpawnTime;
+    private string coroutineSpawn = "Spawn";
 
 
     private void Awake()
@@ -24,13 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("Spawn");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(coroutineSpawn);
     }
 
     IEnumerator Spawn()
