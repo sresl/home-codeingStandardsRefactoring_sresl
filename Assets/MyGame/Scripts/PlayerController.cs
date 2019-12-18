@@ -5,15 +5,14 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator anim, anim2, anim3, anim4, anim5;
     [SerializeField] float jumpForce;
-    
+
+    bool grounded;
+    bool gameOver = false;
     private string playerJump = "Jump";
     private string debugDelete = "DeleteMe";
     private string ground = "Ground";
     private string obstacle = "Obstacle";
-
     private string playerDeath = "SantaDeath";
-
-
 
     private void Awake()
     {
@@ -24,18 +23,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0) && !gameOver && !gameOver && !gameOver)
+        if (Input.GetMouseButton(0) && !gameOver)
         {
             if (grounded == true)
             {
                 jump();
             }
-
         }
     }
-
-    bool grounded;
-    bool gameOver = false;
 
     void jump()
     {
@@ -69,8 +64,4 @@ public class PlayerController : MonoBehaviour
             gameOver = SetGameOverTrue();
         }
     }
-
-
-
-
 }
