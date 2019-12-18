@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,17 +6,19 @@ public class PlayerController : MonoBehaviour
     Animator anim, anim2, anim3, anim4, anim5;
     [SerializeField] float jumpForce;
     
+    private string playerJump = "Jump";
+    private string debugDelete = "DeleteMe";
+    private string ground = "Ground";
+    private string obstacle = "Obstacle";
+
+    private string playerDeath = "SantaDeath";
+
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
             {
                 jump();
             }
-
-
-
 
         }
     }
@@ -46,10 +43,10 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = Vector2.up * jumpForce;
 
-        anim.SetTrigger("Jump");
+        anim.SetTrigger(playerJump);
 
         GameManager.instance.IncrementScore();
-        Debug.Log("DeleteMe");
+        Debug.Log(debugDelete);
     }
 
     private bool SetGameOverTrue()
@@ -58,17 +55,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)   {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == ground)
         {
             grounded = true;}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Obstacle"){
+        if(collision.gameObject.tag == obstacle){
             GameManager.instance.GameOver();
             Destroy(collision.gameObject);
-            anim.Play("SantaDeath");
+            anim.Play(playerDeath);
             gameOver = SetGameOverTrue();
         }
     }
